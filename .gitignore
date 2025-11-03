@@ -1,0 +1,4 @@
+# Ignore build outputs and temp files
+*.o
+hash_table
+.DS_Store
