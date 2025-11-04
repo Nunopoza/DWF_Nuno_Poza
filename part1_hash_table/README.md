@@ -125,4 +125,4 @@ part1_hash_table/
 
 **Nuno Poza**  
 DWF
-Part 1 — Hash Table (2025)
+Part 1 — Fixed-Size Hash Table with Linear Probing (2025)
