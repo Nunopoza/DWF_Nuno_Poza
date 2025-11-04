@@ -190,5 +190,5 @@ even when the core algorithm remains identical.
 ## Author
 
 **Nuno Poza**  
-HESGE - Advanced C Systems Programming  
+DWF
 Part 2 — Binance Futures API Parser (2025)
