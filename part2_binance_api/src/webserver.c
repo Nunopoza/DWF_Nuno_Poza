@@ -5,6 +5,7 @@
 #include <arpa/inet.h>
 #include "api.h"
 #include "parser.h"
+#include "timer.h"
 
 #define PORT 8080
 
@@ -73,12 +74,23 @@ void start_web_server(void) {
                     int saved_stdout = dup(STDOUT_FILENO);
                     dup2(fileno(tmp), STDOUT_FILENO);
 
-                    // Call parser (writes to stdout)
-                    parse_trades(trade_buffer);
+                    //// Measure parsing time
+                    double start = get_time_ms();
+                    int count = parse_trades(trade_buffer);
+                    double end = get_time_ms();
 
                     fflush(stdout);
                     fseek(tmp, 0, SEEK_SET);
                     fread(result, 1, sizeof(result) - 1, tmp);
+
+                    //// Format result text
+                    char stats[256];
+                    snprintf(stats, sizeof(stats),
+                            "\nParsed %d trades in %.3f ms (%.3f µs per trade)\n",
+                            count, end - start, (end - start) * 1000.0 / (count > 0 ? count : 1));
+
+                    //// Append stats to the captured output
+                    strncat(result, stats, sizeof(result) - strlen(result) - 1);
 
                     // Restore stdout
                     dup2(saved_stdout, STDOUT_FILENO);
