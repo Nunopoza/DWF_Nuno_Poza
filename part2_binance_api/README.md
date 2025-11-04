@@ -92,19 +92,7 @@ Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
 Example view:
 
-```
-Binance Trade Parser
---------------------
-Symbol: [ BTCUSDT ]  Limit: [ 10 ] [ Run Parser ]
-
---- Results ---
-[
-  { "a": 2928762982, "p": "103995.10", "q": "0.012", "m": false },
-  ...
-]
-
-Parsed 10 trades in 0.43 ms (43.4 µs per trade)
-```
+<img width="2560" height="1440" alt="Captura de pantalla 2025-11-04 a las 15 21 00" src="https://github.com/user-attachments/assets/c027f412-fce5-46da-9e5d-5ac08bb59c68" />
 
 ---
 
