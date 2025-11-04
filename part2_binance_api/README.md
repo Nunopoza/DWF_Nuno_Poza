@@ -92,8 +92,7 @@ Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
 Example view:
 
-<img width="1029" height="625" alt="Captura de pantalla 2025-11-04 a las 15 27 06" src="https://github.com/user-attachments/assets/b188d812-3c23-4d07-98b2-c0e412bc79fc" />
----
+<img width="823.2" height="500" alt="Captura de pantalla 2025-11-04 a las 15 27 06" src="https://github.com/user-attachments/assets/b188d812-3c23-4d07-98b2-c0e412bc79fc" />
 
 ## Performance Metrics
 
@@ -175,13 +174,17 @@ sudo apt install libcurl4-openssl-dev libcjson-dev
 
 ---
 
-## Future Improvements
+## Performance Note
 
-- Real-time WebSocket trade streaming (`wss://fstream.binance.com/ws`)
-- Export results as `.csv` or `.json`
-- Add live charts using simple HTML canvas
-- Implement WebAssembly-compatible build
+When comparing execution times, the parser runs slightly faster in the terminal than through the web interface.  
+This is expected: the web mode performs additional I/O operations, including temporary file redirection (`tmpfile()`),
+reading/parsing the output into memory, and serving it through an HTTP socket to the browser.
 
+In the terminal version, only the `parse_trades()` function and immediate print operations are measured.  
+In contrast, the web version measures the full request–response cycle, which naturally adds a few microseconds per trade.
+
+This difference illustrates how runtime environments and I/O layers can influence observed performance,
+even when the core algorithm remains identical.
 ---
 
 ## Author
