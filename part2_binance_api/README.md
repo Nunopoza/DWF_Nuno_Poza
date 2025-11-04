@@ -91,8 +91,7 @@ Then open [http://localhost:8080](http://localhost:8080) in your browser.
   - Scrollable formatted JSON
 
 Example view:
-
-<img width="823.2" height="500" alt="Captura de pantalla 2025-11-04 a las 15 27 06" src="https://github.com/user-attachments/assets/b188d812-3c23-4d07-98b2-c0e412bc79fc" />
+<img width="943" height="663" alt="Captura de pantalla 2025-11-04 a las 15 51 30" src="https://github.com/user-attachments/assets/d4a8a268-ca93-4db3-89c9-f26e83342615" />
 
 ## Performance Metrics
 
@@ -185,6 +184,7 @@ In contrast, the web version measures the full request–response cycle, which n
 
 This difference illustrates how runtime environments and I/O layers can influence observed performance,
 even when the core algorithm remains identical.
+
 ---
 
 ## Author
