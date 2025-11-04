@@ -2,8 +2,7 @@
 
 ## Overview
 This project implements a **C program** that connects to the Binance USD-M Futures REST API endpoint  
-[`GET /fapi/v1/aggTrades`](https://binance-docs.github.io/apidocs/futures/en/#compressed-aggregate-trades-list),  
-downloads a stream of aggregated trades, parses the JSON response, and prints each trade in a readable format.
+[`GET /fapi/v1/aggTrades`](https://binance-docs.github.io/apidocs/futures/en/#compressed-aggregate-trades-list), downloads a stream of aggregated trades, parses the JSON response, and prints each trade in a readable format.
 
 The parser also measures the execution time per trade using a lightweight timing utility (`timer.h`).
 
@@ -65,32 +64,104 @@ make clean
 
 ## Example Output
 ```
-🚀 Running Binance API parser...
+Running Binance API parser...
 Fetching trades from Binance...
 Data received. Parsing...
 
 [
   {
-    "a": 2928573735,
-    "p": "104505.40",
-    "q": "0.012",
-    "f": 681836635,
-    "l": 681836635,
-    "T": 17307256768430,
+    "a": 2928585632,
+    "p": "104468.20",
+    "q": "0.010",
+    "f": 6818390298,
+    "l": 6818390298,
+    "T": 1762257481769,
+    "m": true
+  },
+  {
+    "a": 2928585633,
+    "p": "104468.30",
+    "q": "0.001",
+    "f": 6818390299,
+    "l": 6818390299,
+    "T": 1762257482076,
     "m": false
   },
   {
-    "a": 2928573736,
-    "p": "104505.30",
-    "q": "0.003",
-    "f": 681836636,
-    "l": 681836636,
-    "T": 17307256768439,
+    "a": 2928585634,
+    "p": "104468.30",
+    "q": "0.001",
+    "f": 6818390300,
+    "l": 6818390300,
+    "T": 1762257482194,
+    "m": false
+  },
+  {
+    "a": 2928585635,
+    "p": "104468.20",
+    "q": "0.002",
+    "f": 6818390301,
+    "l": 6818390301,
+    "T": 1762257482248,
     "m": true
-  }
+  },
+  {
+    "a": 2928585636,
+    "p": "104468.30",
+    "q": "0.011",
+    "f": 6818390302,
+    "l": 6818390309,
+    "T": 1762257482368,
+    "m": false
+  },
+  {
+    "a": 2928585637,
+    "p": "104468.30",
+    "q": "0.001",
+    "f": 6818390310,
+    "l": 6818390310,
+    "T": 1762257482522,
+    "m": false
+  },
+  {
+    "a": 2928585638,
+    "p": "104468.20",
+    "q": "0.001",
+    "f": 6818390311,
+    "l": 6818390311,
+    "T": 1762257482562,
+    "m": true
+  },
+  {
+    "a": 2928585639,
+    "p": "104468.20",
+    "q": "0.010",
+    "f": 6818390312,
+    "l": 6818390318,
+    "T": 1762257483191,
+    "m": true
+  },
+  {
+    "a": 2928585640,
+    "p": "104468.30",
+    "q": "0.004",
+    "f": 6818390319,
+    "l": 6818390319,
+    "T": 1762257483681,
+    "m": false
+  },
+  {
+    "a": 2928585641,
+    "p": "104468.20",
+    "q": "0.001",
+    "f": 6818390320,
+    "l": 6818390320,
+    "T": 1762257484083,
+    "m": true
+  },
 ]
 
-Parsed 3 trades in 0.114 ms (38.000 µs per trade)
+Parsed 10 trades in 0.253 ms (25.300 µs per trade)
  Execution finished.
 ```
 
@@ -177,3 +248,11 @@ This project demonstrates how to:
 - Handle integer overflow and ensure data integrity
 
 All code follows a modular structure and Doxygen-style comments for clarity.
+
+---
+
+## Author
+
+**Nuno Poza**  
+Digital World Foundations — Software Development Module  
+November 2025
