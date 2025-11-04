@@ -46,7 +46,9 @@ cd part2_binance_api && make
 ```
 
 ---
-
 ## Author
+
 **Nuno Poza**  
-Advanced Software Testing — May 2024
+DWF - November 2025
+
+
