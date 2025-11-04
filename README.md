@@ -1,7 +1,6 @@
-# DWF_Nuno_Poza — Software Testing Project (May 2024)
+# DWF_Nuno_Poza
 
 ## Overview
-This repository contains two C-based software testing projects completed as part of the **Advanced Software Testing** module.  
 Each part focuses on a specific aspect of algorithmic and system-level development.
 
 ---
@@ -50,5 +49,6 @@ cd part2_binance_api && make
 
 **Nuno Poza**  
 DWF - November 2025
+
 
 
