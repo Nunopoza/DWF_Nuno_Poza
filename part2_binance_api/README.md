@@ -92,8 +92,7 @@ Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
 Example view:
 
-<img width="2560" height="1440" alt="Captura de pantalla 2025-11-04 a las 15 21 00" src="https://github.com/user-attachments/assets/c027f412-fce5-46da-9e5d-5ac08bb59c68" />
-
+<img width="1029" height="625" alt="Captura de pantalla 2025-11-04 a las 15 27 06" src="https://github.com/user-attachments/assets/b188d812-3c23-4d07-98b2-c0e412bc79fc" />
 ---
 
 ## Performance Metrics
