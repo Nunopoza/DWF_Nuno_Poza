@@ -1,101 +1,61 @@
-# Part 1 – Fixed-Size Hash Table (C Project)
+# Part 1 — Fixed-Size Hash Table with Linear Probing
 
 ## Overview
+This project implements a **fixed-size hash table** using **linear probing** to handle collisions.
+Each key corresponds to a word extracted from *A Tale of Two Cities* by Charles Dickens, sourced from Project Gutenberg.
 
-This project implements a **fixed-size hash table** in C using **linear probing** to resolve collisions.  
-The hash table stores **key–value pairs**, where the key is a word (string) and the value is an integer.
-
-The dataset is created from the book  
-[A Tale of Two Cities](https://www.gutenberg.org/files/98/98-0.txt)  
-by Charles Dickens (Project Gutenberg).
-
-The program demonstrates the following operations, all with *O(1)* average-case complexity:
-
-- `insert(key, value)` — inserts or updates a key–value pair  
-- `remove(key)` — deletes a key–value pair  
-- `get(key)` — retrieves a value by key  
-- `get_first()` — returns the first inserted key–value pair  
-- `get_last()` — returns the most recently inserted or updated key–value pair  
+You can run the program in **two modes**:
+1. **CLI Mode** — loads the dataset and tests core hash table functions.
+2. **Web Mode** — starts a local web server (http://localhost:8080) to interact with the hash table visually.
 
 ---
 
-## Folder Structure
+## Features Implemented
+- **`insert(key, value)`** — inserts or updates a key-value pair.  
+- **`remove(key)`** — removes a key from the table.  
+- **`get(key)`** — retrieves the value for a given key.  
+- **`get_first()`** — returns the least recently inserted or modified key.  
+- **`get_last()`** — returns the most recently inserted or modified key.  
+- **Web interface** for interactive testing.
 
-```
-part1_hash_table/
-├── data/
-│   └── 98-0.txt           # Dataset (book text)
-├── src/
-│   ├── main.c             # Program entry point
-│   ├── hashtable.c        # Hash table implementation
-│   └── hashtable.h        # Header file
-├── Makefile               # Build automation
-└── README.md              # Project documentation
+---
+
+## Build Instructions
+
+### Clone the repository
+```bash
+git clone https://github.com/Nunopoza/DWF_Nuno_Poza.git
+cd part1_hash_table
 ```
 
----
-
-## Requirements
-
-- **C Compiler** — GCC or Clang (supports C11 standard)  
-- **Make utility** — to build and run the project  
-- **Operating system** — Linux, macOS, or WSL on Windows  
-
----
-
-## Build and Run
-
-### 1. Compile the project
-
+### Build the project
 ```bash
 make
 ```
 
-This command compiles all source files inside `src/` and produces an executable called `hash_table`.
+This will compile `src/main.c`, `src/hashtable.c`, and `src/webserver.c` into the executable `hash_table`.
 
-### 2. Run the program
+---
 
-Make sure the dataset file `98-0.txt` is located in the `data/` folder.
+## Running the Program
 
-Then run:
-
+### **Mode 1: Command-Line Mode**
 ```bash
 ./hash_table 100003 data/98-0.txt
 ```
 
-Alternatively, you can build **and** run in one step:
+This mode loads the entire dataset and performs automated tests for all hash table operations.
 
-```bash
-make run
+### CLI Output Example
 ```
-
-### 3. Clean build files
-
-```bash
-make clean
-```
-
-This removes the compiled binary (`hash_table`).
-
----
-
-## Example Output
-
-```
-====================================
-  Fixed-Size Hash Table Demo
-====================================
-
-Dataset file: data/98-0.txt
-Table size:   100003
-
+Loading words from data/98-0.txt...
 Dataset loaded successfully.
 ------------------------------------
 
 Testing hash table operations:
 
   GET("casting")       -> 108899
-  GET_FIRST()          -> "the" -> 141720
+  GET_FIRST()          -> "the" -> 0
   GET_LAST()           -> "ebooks" -> 141745
   REMOVE("perplexed")  -> removed
   GET("perplexed")     -> not found
@@ -104,18 +64,67 @@ Testing hash table operations:
 Execution completed successfully.
 ```
 
+**Insert your screenshot below:**
+> *(Screenshot: Terminal output after running CLI mode)*
+
 ---
 
-## Notes
+### **Mode 2: Web Interface**
+```bash
+./hash_table --web
+```
+Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
-- The table size (here `100003`) should be a **large prime number** for optimal performance.  
-- You can adjust it based on the expected number of unique words in the dataset.  
-- The program reads the text line by line, tokenizes it into lowercase words, and inserts each into the hash table.
+In this mode, the program automatically loads the dataset (`data/98-0.txt`) and allows you to:
+
+- Search for specific words using `get(key)`  
+- Insert new entries manually (`insert(key, value)`)  
+- Remove words (`remove(key)`)  
+- View the first and last keys (`get_first()`, `get_last()`)  
+
+**Insert your screenshot below:**
+> *(Screenshot: Web interface running on localhost)*
+
+---
+
+## Design Highlights
+
+- **Linear probing** for collision resolution, ensuring simplicity and speed.  
+- **Constant-time (O(1)) operations** in the average case for `get`, `insert`, and `remove`.  
+- **HTML-based web interface** using a lightweight HTTP server (no external dependencies).  
+- Automatic dataset loading on `--web` mode from `data/98-0.txt`.
+
+---
+
+## Performance Note
+
+Performance depends on table size and load factor.  
+The hash table achieves near O(1) performance under moderate load but may degrade toward O(n) when many collisions occur.
+
+**Insert your screenshot below:**
+> *(Screenshot: Performance results or summary if applicable)*
+
+---
+
+## File Structure
+
+```
+part1_hash_table/
+├── Makefile
+├── README.md
+├── data/
+│   └── 98-0.txt
+├── src/
+│   ├── main.c
+│   ├── hashtable.c
+│   ├── hashtable.h
+│   ├── webserver.c
+│   └── webserver.h
+└── tests/
+```
 
 ---
 
 ## Author
-
 **Nuno Poza**  
-Digital World Foundations — Software Development Module  
-November 2025
+Advanced Software Testing — May 2024  

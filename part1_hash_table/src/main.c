@@ -3,14 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 #include "hashtable.h"
+#include "webserver.h" 
 
 #define BUFFER_SIZE 8192
 
 /*
-* Normalize al characters
+* Normalize all characters
 */
-static void normalize(char *s){
-    for(; *s; ++s){
+static void normalize(char *s) {
+    for (; *s; ++s) {
         *s = (char)tolower((unsigned char)*s);
     }
 }
@@ -18,64 +19,76 @@ static void normalize(char *s){
 /*
 * Extract words and load them in a hash table with incremental value
 */
-static void load_words(FILE *file, HashTable *table){
+static void load_words(FILE *file, HashTable *table) {
     char buffer[BUFFER_SIZE];
     unsigned long counter = 0;
 
-    while (fgets(buffer, BUFFER_SIZE, file)){ //// Reads the file, line by line
+    while (fgets(buffer, BUFFER_SIZE, file)) { //// Reads the file, line by line
+        char *p = buffer;
 
-        char *p = buffer; 
+        while (*p) { //// While we have characters to be read
+            while (*p && !isalnum((unsigned char)*p)) p++; //// Ignore non alphanumeric
+            if (!*p) break;
 
-        while(*p){ //// While we have characters to be read
+            char *start = p; //// Store first letter/number of the word
+            while (*p && isalnum((unsigned char)*p)) p++; //// Advance through word
 
-           while(*p && !isalnum((unsigned char)*p)) p++; //// Ignore non numbers/caracters
-           if(!*p) break;
-           
-           char *start = p; //// Store firts letter/number of the word
+            size_t len = (size_t)(p - start);
+            char *word = malloc(len + 1);
+            if (!word) {
+                fprintf(stderr, "Error allocating memory.\n");
+                exit(EXIT_FAILURE);
+            }
 
-           while (*p && isalnum((unsigned char)*p)) p++; //// Advance through word
+            strncpy(word, start, len);
+            word[len] = '\0';
+            normalize(word);
 
-           size_t len = (size_t)(p-start);
-           char *word = malloc(len+1);
-           if(!word){
-            fprintf(stderr, "Error allocating memory.\n");
-            exit(EXIT_FAILURE);
-           }
-
-           strncpy(word, start, len);
-           word[len] = '\0';
-
-           normalize(word);
-
-           insert(table, word, (int)counter++); //// Insert word in the hash table
-
-           free(word); //// Free temporal save
+            insert(table, word, (int)counter++); //// Insert word in the hash table
+            free(word); //// Free temporary copy
         }
-
     }
 }
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
+    if (argc == 2 && strcmp(argv[1], "--web") == 0) {
+        HashTable *table = create_table(100003);
 
-    if(argc < 3){ //// Check if there are enough arguments
-        fprintf(stderr, "Usage: %s <table_size> <book_file>\n", argv[0]);
+        FILE *file = fopen("data/98-0.txt", "r");
+        if (file) {
+            printf("Loading dataset before starting web server...\n");
+            load_words(file, table);
+            fclose(file);
+        } else {
+            printf("Warning: Could not open data/98-0.txt. Starting with empty table.\n");
+        }
+
+        printf("Starting Hash Table Web Server...\n");
+        start_web_server(table);
+        free_table(table);
+        return EXIT_SUCCESS;
+    }
+
+    //// CLI mode (default)
+    if (argc < 3) {
+        fprintf(stderr, "Usage: %s <table_size> <book_file> or %s --web\n", argv[0], argv[0]);
         return EXIT_FAILURE;
     }
 
-    int table_size = atoi(argv[1]); 
-    if(table_size <= 0){ //// Check size of the table
+    int table_size = atoi(argv[1]);
+    if (table_size <= 0) {
         fprintf(stderr, "Invalid table size.\n");
         return EXIT_FAILURE;
     }
 
-    FILE *file = fopen(argv[2], "r"); //// Open the text file
-    if(!file){
+    FILE *file = fopen(argv[2], "r");
+    if (!file) {
         perror("Error opening file");
         return EXIT_FAILURE;
     }
 
     HashTable *table = create_table(table_size);
-    if(!table){
+    if (!table) {
         fprintf(stderr, "Failed to create hash table.\n");
         fclose(file);
         return EXIT_FAILURE;
@@ -85,7 +98,7 @@ int main(int argc, char *argv[]){
     load_words(file, table);
     fclose(file);
 
-    //// TESTS!!!!!!
+    //// TESTS
     printf("Dataset file: %s\n", argv[2]);
     printf("Table size:   %d\n\n", table_size);
     printf("Dataset loaded successfully.\n");

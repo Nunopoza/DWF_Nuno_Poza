@@ -7,8 +7,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 -O2
 
 # Source files
-SRC = src/main.c src/hashtable.c
-HDR = src/hashtable.h
+SRC = src/main.c src/hashtable.c src/webserver.c
+HDR = src/hashtable.h src/webserver.h
 
 TARGET = hash_table
 
