@@ -1,13 +1,33 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "api.h"
 #include "parser.h"
 #include "timer.h"
+#include "webserver.h" 
 
-int main(void){
-    char buffer[2000000]; //// 2MB of Buffer
+/**
+ * @brief Program entry point.
+ * @param argc number of command-line arguments
+ * @param argv argument vector
+ */
+int main(int argc, char *argv[]) {
+
+    //// WEB MODE
+    if (argc > 1 && strcmp(argv[1], "--web") == 0) {
+        start_web_server(); //// Launch local web interface
+        return 0;
+    }
+
+    //// CLI MODE
+    char buffer[2000000]; //// 2MB of buffer for HTTP response
     printf("Fetching trades from Binance...\n");
 
-    if(get_agg_trades("BTCUSDT", 10, buffer, sizeof(buffer)) !=0){
+    //// Default parameters
+    const char *symbol = argc > 1 ? argv[1] : "BTCUSDT";
+    int limit = argc > 2 ? atoi(argv[2]) : 10;
+
+    if (get_agg_trades(symbol, limit, buffer, sizeof(buffer)) != 0) {
         fprintf(stderr, "Error fetching trades.\n");
         return 1;
     }

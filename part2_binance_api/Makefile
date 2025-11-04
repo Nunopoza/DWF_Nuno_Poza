@@ -9,7 +9,7 @@ CFLAGS = -Wall -Wextra -std=c11 -O2
 LIBS = -lcurl -lcjson
 
 # Source and header files
-SRC = src/main.c src/api.c src/parser.c
+SRC = src/main.c src/api.c src/parser.c src/webserver.c
 HDR = src/api.h src/parser.h src/timer.h
 
 # Executable name
