@@ -112,16 +112,17 @@ part1_hash_table/
 ├── data/
 │   └── 98-0.txt
 ├── src/
-│   ├── main.c
-│   ├── hashtable.c
-│   ├── hashtable.h
-│   ├── webserver.c
-│   └── webserver.h
-└── tests/
+    ├── main.c
+    ├── hashtable.c
+    ├── hashtable.h
+    ├── webserver.c
+    └── webserver.h
 ```
 
 ---
 
 ## Author
+
 **Nuno Poza**  
-DWF — November 2025  
+DWF
+Part 1 — Hash Table (2025)
