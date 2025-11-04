@@ -7,7 +7,7 @@ int main(void){
     char buffer[2000000]; //// 2MB of Buffer
     printf("Fetching trades from Binance...\n");
 
-    if(get_agg_trades("BTCUSDT", 3, buffer, sizeof(buffer)) !=0){
+    if(get_agg_trades("BTCUSDT", 10, buffer, sizeof(buffer)) !=0){
         fprintf(stderr, "Error fetching trades.\n");
         return 1;
     }
